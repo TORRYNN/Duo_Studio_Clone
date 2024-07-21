@@ -52,11 +52,16 @@ tl.to(".page1 h2", {
 
 tl.to(".page1 video", {
     width: "90%",
-    
-    
-
 }, "anim")
 
+
+gsap.from(".page1 h1,.page1 h2", {
+    y: 10,
+    rotate: 10,
+    opacity: 0,
+    delay: 0.3,
+    duration: 0.4
+})
 // Timeline 2 for page2 
 
 var tl2 = gsap.timeline({
@@ -102,15 +107,18 @@ tl3.to(".main", {
 var crsr = document.querySelector(".cursor");
 var main = document.querySelector(".main");
 
-document.addEventListener("mousemove", function(dets) {
-    gsap.to(crsr, { 
-        duration: 0.1, 
-        left: dets.x - 10 + "px", 
-        top: dets.y - 10 + "px",
-        ease: "power2.out"
-    });
-});
+document.addEventListener("mousemove", function (dets) {
+  crsr.style.left = dets.x + 20 + "px";
+  crsr.style.top = dets.y + 20 + "px";
 
+  crsr.animate(
+    {
+      left: `${dets.x}px`,
+      top: `${dets.y}px`,
+    },
+    { duration: 1500, fill: "forwards" }
+  );
+});
 
 
 // Mouseleave event listener to hide cursor
@@ -133,24 +141,31 @@ var boxes=document.querySelectorAll(".box")
 boxes.forEach(function(elem) {
     elem.addEventListener("mouseenter", function(){
         var att=elem.getAttribute("data-image")
-        crsr.style.width="300px",
-        crsr.style.height="300px",
+        crsr.style.width="470px",
+        crsr.style.height="370px",
         crsr.style.borderRadius="0",
+        crsr.classList.add('cursor-blend'),
+        crsr.classList.add('cursor-img'),     
         crsr.style.backgroundImage=`url(${att})`
                 
     })
     elem.addEventListener("mouseleave", function(){
+        elem.style.backgroundColor = "transparent"
         crsr.style.width="20px",
         crsr.style.height="20px",
         crsr.style.borderRadius="50%",
-        crsr.style.backgroundImage="none"
+        crsr.style.backgroundImage="none",
+        crsr.classList.remove('cursor-blend');
+        crsr.classList.remove('cursor-img');
     })
 })
 
 
 
-var h4 = document.querySelectorAll("#nav h4")
+var h4 = document.querySelectorAll("#nav-part2 a h4 ")
 var purple = document.querySelector("#purple")
+
+var navhoverH1 = document.querySelectorAll('#purple h1');
 h4.forEach(function(elem){
     elem.addEventListener("mouseenter",function(){
         purple.style.display = "block"   
@@ -162,36 +177,23 @@ h4.forEach(function(elem){
     })
 })
 
-function cursorOnVideo(video, text1, text2) {
-  crsr.classList.add("cursor-active");
-  if (video.muted) {
-    crsr.innerHTML = text1;
-  } else {
-    crsr.innerHTML = text2;
-  }
-}
 
-videos.forEach((video) => {
-  video.addEventListener("mousemove", function () {
-    cursorOnVideo(video, "sound on", "sound off");
+
+h4.forEach((element, idx) => {
+  if (idx == -1) return;
+
+  element.addEventListener('mouseenter', function() {
+      navhoverH1.forEach((h1) => {
+          h1.innerHTML = "&nbsp;" + element.innerHTML + " " + element.innerHTML + " " + element.innerHTML + " " + element.innerHTML + " " + element.innerHTML;
+      });
+      purple.style.display = "block";
+      purple.style.opacity = "1";
   });
 });
 
-videos.forEach((video) => {
-  video.addEventListener("mouseenter", function () {
-    cursorOnVideo(video, "sound on", "sound off");
-  });
+document.querySelector('nav').addEventListener('mouseleave', function() {
+  purple.style.display = "none";
+  purple.style.opacity = "0";
+  
 });
 
-videos.forEach((video) => {
-  video.addEventListener("click", function () {
-    video.muted = !video.muted;
-  });
-});
-
-videos.forEach((video) => {
-  video.addEventListener("mouseleave", function () {
-    crsr.classList.remove("cursor-active");
-    crsr.innerHTML = "";
-  });
-});
