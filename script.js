@@ -68,9 +68,9 @@ var tl2 = gsap.timeline({
     scrollTrigger: {
         trigger: ".page1 h1",
         scroller: ".main",
-        // markers:true,
-        start: "top -175%",
-        end: "top -150%",
+        markers:true,
+        start: "top -150%",
+        end: "top -145%",
         scrub: 3
     }
 })
@@ -138,34 +138,40 @@ var boxes=document.querySelectorAll(".box")
 
 // Loop for selecting the boxes
 
-boxes.forEach(function(elem) {
-    elem.addEventListener("mouseenter", function(){
-        var att=elem.getAttribute("data-image")
+boxes.forEach(function(box) {
+    box.addEventListener("mouseenter", function(){
+        var att=box.getAttribute("data-image")
         crsr.style.width="470px",
         crsr.style.height="370px",
-        crsr.style.borderRadius="0",
+        crsr.style.borderRadius="25px",
         crsr.classList.add('cursor-blend'),
-        crsr.classList.add('cursor-img'),     
+        crsr.classList.add('cursor-img'),
+        box.style.color="#green",
+        
         crsr.style.backgroundImage=`url(${att})`
                 
     })
-    elem.addEventListener("mouseleave", function(){
-        elem.style.backgroundColor = "transparent"
-        crsr.style.width="20px",
-        crsr.style.height="20px",
+    box.addEventListener("mouseleave", function(){
+        box.style.backgroundColor = "transparent"
+        crsr.style.width="17px",
+        crsr.style.height="17px",
         crsr.style.borderRadius="50%",
         crsr.style.backgroundImage="none",
         crsr.classList.remove('cursor-blend');
-        crsr.classList.remove('cursor-img');
+        
+        box.style.color="red"
     })
 })
 
+// Navigation bar animation
 
-
+// Variable to select  the value of h4
 var h4 = document.querySelectorAll("#nav-part2 a h4 ")
 var purple = document.querySelector("#purple")
 
 var navhoverH1 = document.querySelectorAll('#purple h1');
+
+// Function for text animaton
 h4.forEach(function(elem){
     elem.addEventListener("mouseenter",function(){
         purple.style.display = "block"   
@@ -178,12 +184,13 @@ h4.forEach(function(elem){
 })
 
 
-
+// Loop for selecting the h4 or navigation elements
 h4.forEach((element, idx) => {
   if (idx == -1) return;
 
   element.addEventListener('mouseenter', function() {
       navhoverH1.forEach((h1) => {
+        // Creating a string of non breakspace h1
           h1.innerHTML = "&nbsp;" + element.innerHTML + " " + element.innerHTML + " " + element.innerHTML + " " + element.innerHTML + " " + element.innerHTML;
       });
       purple.style.display = "block";
