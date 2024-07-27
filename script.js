@@ -20,7 +20,6 @@ function init() {
         pinType: document.querySelector(".main").style.transform ? "transform" : "fixed"
     });
 
-
     ScrollTrigger.addEventListener("refresh", () => locoScroll.update());
 
     ScrollTrigger.refresh();
@@ -54,7 +53,6 @@ tl.to(".page1 video", {
     width: "90%",
 }, "anim")
 
-
 gsap.from(".page1 h1,.page1 h2", {
     y: 10,
     rotate: 10,
@@ -68,7 +66,7 @@ var tl2 = gsap.timeline({
     scrollTrigger: {
         trigger: ".page1 h1",
         scroller: ".main",
-        markers:true,
+        // markers:true,
         start: "top -150%",
         end: "top -145%",
         scrub: 3
@@ -81,12 +79,11 @@ tl2.to(".main", {
     ease: "power1.inOut",
 });
 
-
 var tl3 = gsap.timeline({
     scrollTrigger: {
         trigger: ".page1 h1",
         scroller: ".main",
-        markers:true,
+        // markers:true,
         start: "top -260%",
         end: "top -230%",
         scrub: 3
@@ -99,7 +96,6 @@ tl3.to(".main", {
     duration:0.1,
     ease: "power1.inOut",
 });
-
 
 // Cursor effect
 
@@ -120,7 +116,6 @@ document.addEventListener("mousemove", function (dets) {
   );
 });
 
-
 // Mouseleave event listener to hide cursor
 document.addEventListener("mouseleave", function() {
     crsr.style.display = "none";
@@ -130,8 +125,6 @@ document.addEventListener("mouseleave", function() {
 main.addEventListener("mouseenter", function() {
     crsr.style.display = "block";
 });
-
-
 
 // Selecting all the boxes
 var boxes=document.querySelectorAll(".box")
@@ -183,7 +176,6 @@ h4.forEach(function(elem){
     })
 })
 
-
 // Loop for selecting the h4 or navigation elements
 h4.forEach((element, idx) => {
   if (idx == -1) return;
@@ -203,4 +195,3 @@ document.querySelector('nav').addEventListener('mouseleave', function() {
   purple.style.opacity = "0";
   
 });
-
